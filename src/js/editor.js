@@ -23,6 +23,11 @@ import Underline       from '@editorjs/underline';
 import LinkTool        from '@editorjs/link';
 import Alert           from 'editorjs-alert';
 import ToggleBlock     from 'editorjs-toggle-block';
+import {
+	claimRapidHolder,
+	normalizeHeaderLevels,
+	resolveExternalTools,
+} from './rapid-runtime.js';
 
 // Patch editorjs-toggle-block: addSupportForDragAndDropActions uses
 // document.querySelector('.ce-toolbar__settings-btn') globally — returns null
@@ -167,11 +172,11 @@ function buildTools(config) {
 	const uploadUrl    = config?.uploadUrl    ?? '';
 	const pageId       = config?.pageId       ?? 0;
 	const fieldName    = config?.fieldName    ?? '';
-	const headerLevels = config?.headerLevels ?? [2, 3, 4];
+	const headerLevels = normalizeHeaderLevels(config?.headerLevels);
 	const headerDefault = config?.headerDefault ?? 2;
 	const maxUploadMB  = config?.maxUploadMB  ?? 10;
 
-	return {
+	const builtin = {
 		// Block tools
 		header: {
 			class:  Header,
@@ -243,6 +248,15 @@ function buildTools(config) {
 
 		// Tunes
 	};
+
+	let external = {};
+	try {
+		external = resolveExternalTools(config, window.RapidExternalTools);
+	} catch (error) {
+		console.error('[Rapid] external tool registration failed', error);
+	}
+
+	return { ...builtin, ...external };
 }
 
 // ── Init ──────────────────────────────────────────────────────────────────
@@ -345,9 +359,19 @@ function initEditor({ holderId, valueId, data, config }) {
 	}).catch(() => {});
 }
 
+function initEditorOnce(entry) {
+	if (!entry?.holderId || !entry?.valueId) return;
+
+	const holder = document.getElementById(entry.holderId);
+	const textarea = document.getElementById(entry.valueId);
+	if (!holder || !textarea || !claimRapidHolder(holder)) return;
+
+	initEditor(entry);
+}
+
 function processQueue() {
-	(window.EJSQueue ?? []).forEach(initEditor);
-	window.EJSQueue = { push: initEditor };
+	(window.EJSQueue ?? []).forEach(initEditorOnce);
+	window.EJSQueue = { push: initEditorOnce };
 }
 
 if (document.readyState === 'loading') {

@@ -12,7 +12,7 @@ class Rapid extends WireData implements Module {
 	public static function getModuleInfo(): array {
 		return [
 			'title'    => 'Rapid',
-			'version'  => 126,
+			'version'  => 130,
 			'summary'  => 'Editor.js block editor fieldtype suite for ProcessWire.',
 			'icon'     => 'bolt',
 			'author'   => 'Maxim Semenov',

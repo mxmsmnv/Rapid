@@ -5,6 +5,24 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.3.0] — 2026-10-08
+
+### Added
+
+- Added `window.RapidExternalTools` as a project-level Editor.js tool registry,
+  accepting either a tool map or a configuration-aware factory.
+- Added editor runtime regression tests for default heading levels, external
+  tool registration, and duplicate holder initialization.
+
+### Fixed
+
+- Made editor initialization idempotent per holder so AJAX or duplicate queue
+  pushes cannot append a second Editor.js instance to the same field.
+- Prefer the Inputfield's assigned page over the page-editor query parameter,
+  allowing image and attachment uploads from Rapid fields inside Repeaters.
+- Apply the default heading levels when frontend configuration supplies an
+  empty array, preventing header blocks from failing to initialize.
+
 ## [1.2.6] — 2026-07-30
 
 ### Fixed

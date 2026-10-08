@@ -415,7 +415,7 @@ For site integration, manually verify:
 
 ## Version And Changelog
 
-When module behavior changes, keep version `125` / `1.2.5` or its successor consistent across:
+When module behavior changes, keep the numeric and semantic versions consistent across:
 
 - all root `*.module.php` files;
 - `src/js/package.json`;

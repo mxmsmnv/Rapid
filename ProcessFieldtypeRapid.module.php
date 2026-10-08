@@ -22,7 +22,7 @@ class ProcessFieldtypeRapid extends Process {
 	public static function getModuleInfo(): array {
 		return [
 			'title'      => 'Rapid Upload',
-			'version'    => 126,
+			'version'    => 130,
 			'summary'    => 'Image and file upload API for the Rapid block editor.',
 			'author'     => 'Maxim Semenov',
 			'href'       => 'https://smnv.org',

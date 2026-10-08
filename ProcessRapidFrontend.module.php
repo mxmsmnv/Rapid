@@ -27,7 +27,7 @@ class ProcessRapidFrontend extends WireData implements Module {
 	public static function getModuleInfo(): array {
 		return [
 			'title'    => 'Rapid Frontend Editor',
-			'version'  => 126,
+			'version'  => 130,
 			'summary'  => 'Provides frontend editing support for Rapid fields.',
 			'author'   => 'Maxim Semenov',
 			'href'     => 'https://smnv.org',
@@ -201,7 +201,7 @@ class ProcessRapidFrontend extends WireData implements Module {
 				'placeholder'   => 'Start writing…',
 				'debounce'      => 0,   // no autosave on frontend — user clicks Save
 				'allowedBlocks' => (array)($field->get('allowedBlocks') ?: []),
-				'headerLevels'  => (array)($field->get('headerLevels') ?: []),
+				'headerLevels'  => (array)($field->get('headerLevels') ?: [2, 3, 4]),
 				'headerDefault' => (int)($field->get('headerDefaultLevel') ?: 2),
 				'maxUploadMB'   => (int)($field->get('maxUploadSizeMB') ?: 10),
 				'inlineTools'   => (array)($field->get('inlineTools') ?: []),

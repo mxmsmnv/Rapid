@@ -2,7 +2,7 @@
 
 Rapid is an Editor.js fieldtype suite for ProcessWire. It stores structured block data as JSON and renders frontend HTML through PHP block renderers.
 
-This document is the canonical integration and configuration guide for Rapid 1.2.5.
+This document is the canonical integration and configuration guide for Rapid 1.3.0.
 
 ## Requirements
 
@@ -407,6 +407,32 @@ Renderer guidelines:
 - handle malformed and legacy data defensively.
 
 Project-specific classes must be loaded before the first renderer registry boot, or registered explicitly with `RapidRenderer::register()`.
+
+## Custom Editor Tools
+
+Projects can register the Editor.js tool for a custom block without editing or
+rebuilding Rapid. Load a project script before Rapid's editor bundle and expose
+either a tool map or a factory on `window.RapidExternalTools`:
+
+```js
+class RapidCalloutTool {
+    // Standard Editor.js tool implementation: toolbox, render(), save(), etc.
+}
+
+window.RapidExternalTools = config => ({
+    callout: {
+        class: RapidCalloutTool,
+        config: { pageId: config.pageId },
+    },
+});
+```
+
+The factory receives the resolved Rapid editor configuration, including the
+page ID, field name and upload endpoint. An object map is also accepted.
+External entries may deliberately replace built-in tool keys. Treat the
+registry as trusted project code and keep the custom block type aligned with
+its PHP renderer. When a field has an `allowedBlocks` list, the custom key must
+be present in that list to appear in the editor.
 
 ## Frontend Editing API
 

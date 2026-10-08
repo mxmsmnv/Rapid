@@ -50,7 +50,10 @@ Rapid includes block tools for:
 - toggles, columns and layout sections;
 - sanitized Raw HTML.
 
-Custom PHP block renderers are discovered automatically, so projects can add their own structured content blocks without modifying the core renderer.
+Custom PHP block renderers are discovered automatically, and project scripts
+can register matching Editor.js tools through `window.RapidExternalTools`, so
+projects can add structured content blocks without modifying Rapid or rebuilding
+its bundle.
 
 ## Template Usage
 

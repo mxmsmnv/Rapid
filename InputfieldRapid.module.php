@@ -14,7 +14,7 @@ class InputfieldRapid extends Inputfield {
 	public static function getModuleInfo(): array {
 		return [
 			'title'   => 'Rapid Input',
-			'version' => 126,
+			'version' => 130,
 			'summary' => 'Admin Inputfield for Rapid. Uses vendored dist/editor.js.',
 			'icon'    => 'bolt',
 			'author'  => 'Maxim Semenov',
@@ -81,10 +81,10 @@ class InputfieldRapid extends Inputfield {
 		// Resolve ID of the page being edited (not the admin page)
 		$pageId = 0;
 		$input  = $this->wire('input');
-		if ($input && (int)$input->get('id')) {
-			$pageId = (int)$input->get('id');
-		} elseif ($this->hasPage && $this->hasPage->id) {
+		if ($this->hasPage && $this->hasPage->id) {
 			$pageId = (int)$this->hasPage->id;
+		} elseif ($input && (int)$input->get('id')) {
+			$pageId = (int)$input->get('id');
 		}
 
 		$config = json_encode([

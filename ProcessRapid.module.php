@@ -15,7 +15,7 @@ class ProcessRapid extends Process {
 	public static function getModuleInfo(): array {
 		return [
 			'title'      => 'Rapid',
-			'version'    => 126,
+			'version'    => 130,
 			'summary'    => 'Dashboard and block preview for the Rapid block editor.',
 			'author'     => 'Maxim Semenov',
 			'href'       => 'https://smnv.org',
